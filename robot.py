@@ -18,3 +18,7 @@ class ROBOT:
     def Sense(self, t):
         for sensor in self.sensors.values():
             sensor.Get_Value(t)
+
+    def Prepare_To_Act(self):
+        for jointName in pyrosim.jointNamesToIndices:
+            self.sensors[jointName] = SENSOR(jointName)
