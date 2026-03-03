@@ -28,6 +28,8 @@ class ROBOT:
             self.motors[jointName] = MOTOR(jointName)
     
     def Act(self, t):
+        for neuronName in self.nn.Get_Neuron_Names():
+            print(neuronName)
         for motor in self.motors.values():
             motor.Set_Value(self.robotId, t)
     
