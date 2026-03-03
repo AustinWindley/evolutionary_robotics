@@ -5,6 +5,7 @@ import constants as c
 import time
 from world import WORLD
 from robot import ROBOT
+
 class SIMULATION:
     def __init__(self):
         self.physicsClient = p.connect(p.GUI)
@@ -20,18 +21,6 @@ class SIMULATION:
         for t in (range(c.run_length)):
             p.stepSimulation()
             self.robot.Sense(t)
-
-            pyrosim.Set_Motor_For_Joint(
-                bodyIndex = self.robot.robotId,
-                jointName = b'Torso_BackLeg',
-                controlMode = p.POSITION_CONTROL,
-                targetPosition = -c.BackLeg_targetAngles[t],
-                maxForce = 20)
-            pyrosim.Set_Motor_For_Joint(
-                bodyIndex = self.robot.robotId,
-                jointName = b'Torso_FrontLeg',
-                controlMode = p.POSITION_CONTROL,
-                targetPosition = c.FrontLeg_targetAngles[t],
-                maxForce = 20)
-            time.sleep(1/240)
+            self.robot.Act(t)
+            time.sleep(1/60)
     
