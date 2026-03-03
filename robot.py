@@ -12,7 +12,6 @@ class ROBOT:
         self.Prepare_To_Sense()  
         self.Prepare_To_Act()
            
-    
     def Prepare_To_Sense(self):
         self.sensors = {}
         self.motors = {}
@@ -33,10 +32,7 @@ class ROBOT:
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName).encode("utf-8")
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
                 self.motors[jointName].Set_Value(self.robotId, desiredAngle)
-                jointName = jointName.decode("utf-8")
-                print(neuronName, jointName, desiredAngle)
-        # for motor in self.motors.values():
-        #     motor.Set_Value(self.robotId, t)
+                # jointName = jointName.decode("utf-8")
     
     def Think(self):
         self.nn.Update()
