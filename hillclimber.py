@@ -16,6 +16,7 @@ class HILL_CLIMBER:
         self.Spawn()
         self.Mutate()
         self.child.Evaluate()
+        print(f"\nparent: {self.parent.fitness} child: {self.child.fitness}")
         self.Select()
 
     def Spawn(self):
