@@ -12,3 +12,5 @@ frontLegSensorValues = np.zeros(run_length)
 max_force = 20
 
 numberOfGenerations = 10
+
+populationSize = 2
