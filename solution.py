@@ -24,7 +24,6 @@ class SOLUTION:
         self.fitness = float(fitnessFile.read())
         fitnessFile.close()
         os.system(f"del {fitnessFileName}")
-        print(self.fitness)
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
