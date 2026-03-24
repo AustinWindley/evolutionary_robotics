@@ -17,8 +17,9 @@ class PARALLEL_HILL_CLIMBER:
         # for currentGeneration in range(c.numberOfGenerations):
         #     self.Evolve_For_One_Generation()
         for i in self.parents.keys():
-            print("i value!!!!!!!!!!: ", i)
-            self.parents[i].Evaluate("GUI")
+            self.parents[i].Start_Simulation("GUI")
+        for i in self.parents.keys():
+            self.parents[i].Wait_For_Simulation_To_End()
 
     def Evolve_For_One_Generation(self):
         self.Spawn()

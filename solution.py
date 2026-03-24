@@ -22,9 +22,9 @@ class SOLUTION:
             time.sleep(0.01)
         fitnessFile = open(fitnessFileName)
         self.fitness = float(fitnessFile.read())
-        print(self.fitness)
         fitnessFile.close()
         os.system(f"del {fitnessFileName}")
+        print(self.fitness)
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
