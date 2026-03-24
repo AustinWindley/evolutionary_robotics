@@ -10,11 +10,13 @@ class SOLUTION:
         self.myID = nextAvailableID
         self.weights = np.random.rand(3,2) * 2 - 1
 
-    def Evaluate(self, directOrGUI):
+    def Start_Simulation(self, directOrGUI):
         self.Create_World()
         self.Generate_Body()
         self.Generate_Brain()
         os.system(f"start /B python simulate.py {directOrGUI} {str(self.myID)}")
+
+    def Wait_For_Simulation_To_End(self):
         fitnessFileName = f"fitness{str(self.myID)}.txt"
         while not os.path.exists(fitnessFileName):
             time.sleep(0.01)
@@ -22,6 +24,7 @@ class SOLUTION:
         self.fitness = float(fitnessFile.read())
         print(self.fitness)
         fitnessFile.close()
+        os.system(f"del {fitnessFileName}")
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
