@@ -1,6 +1,7 @@
 import numpy as np
 import pyrosim.pyrosim as pyrosim
 import os
+import random
 
 class SOLUTION:
     
@@ -50,3 +51,9 @@ class SOLUTION:
                                     weight=self.weights[currentRow][currentColumn])
 
         pyrosim.End()
+    
+    def Mutate(self):
+        randomRow = random.randint(0,2)
+        randomColumn = random.randint(0,1)
+        self.weights[randomRow, randomColumn] = random.random() * 2 - 1
+        
