@@ -25,7 +25,8 @@ class PARALLEL_HILL_CLIMBER:
         self.Spawn()
         self.Mutate()
         self.Evaluate(self.children)
-        # print(f"\nparent: {self.parent.fitness} child: {self.child.fitness}")
+        for i in self.parents.keys():
+            print(f"\nparent: {self.parents[i].fitness} child: {self.children[i].fitness}")
         # self.Select()
 
     def Spawn(self):
