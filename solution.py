@@ -12,10 +12,7 @@ class SOLUTION:
         self.Create_World()
         self.Generate_Body()
         self.Generate_Brain()
-        if directOrGUI == "DIRECT":
-            os.system("python simulate.py DIRECT")
-        else:
-            os.system("python simulate.py GUI")
+        os.system("start /B python simulate.py " + directOrGUI)
         fitnessFile = open("fitness.txt")
         self.fitness = float(fitnessFile.read())
         fitnessFile.close()
