@@ -3,3 +3,5 @@ __pycache__/*
 pyrosim/__pycache__/*
 pyrosim/__pycache__/pyrosim.cpython-314.pyc
 pyrosim/__pycache__/pyrosim.cpython-314.pyc
+brain*.nndf
+fitness*.txt
