@@ -11,8 +11,8 @@ class SOLUTION:
         self.weights = np.random.rand(3,2) * 2 - 1
 
     def Start_Simulation(self, directOrGUI):
-        self.Create_World()
-        self.Generate_Body()
+        # self.Create_World()
+        # self.Generate_Body()
         self.Generate_Brain()
         os.system(f"start /B python simulate.py {directOrGUI} {str(self.myID)}")
 
@@ -24,22 +24,6 @@ class SOLUTION:
         self.fitness = float(fitnessFile.read())
         fitnessFile.close()
         os.system(f"del {fitnessFileName}")
-
-    def Create_World(self):
-        pyrosim.Start_SDF("world.sdf")
-        pyrosim.Send_Cube(name="Box", pos=[-2,2,0.5] , size=[1, 1, 1])
-        pyrosim.End()
-
-    def Generate_Body(self):
-        pyrosim.Start_URDF("body.urdf")
-        pyrosim.Send_Cube(name="Torso", pos=[0,0,1.5], size=[1,1,1])
-        pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = 
-                        "revolute", position = [-0.5,0,1])
-        pyrosim.Send_Cube(name="BackLeg", pos=[-0.5,0,-0.5], size=[1,1,1])
-        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = 
-                        "revolute", position = [0.5,0,1])
-        pyrosim.Send_Cube(name="FrontLeg", pos=[0.5,0,-0.5], size=[1,1,1])
-        pyrosim.End()
 
     def Generate_Brain(self):
         pyrosim.Start_NeuralNetwork(f"brain{self.myID}.nndf")

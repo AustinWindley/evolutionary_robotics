@@ -5,6 +5,7 @@ import constants as c
 import time
 from world import WORLD
 from robot import ROBOT
+import solution
 
 class SIMULATION:
     def __init__(self, directOrGUI, solutionID):
