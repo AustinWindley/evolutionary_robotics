@@ -11,8 +11,6 @@ class SOLUTION:
         self.weights = np.random.rand(3,2) * 2 - 1
 
     def Start_Simulation(self, directOrGUI):
-        # self.Create_World()
-        # self.Generate_Body()
         self.Generate_Brain()
         os.system(f"start /B python simulate.py {directOrGUI} {str(self.myID)}")
 
