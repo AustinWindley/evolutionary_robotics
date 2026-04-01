@@ -11,6 +11,9 @@ frontLegSensorValues = np.zeros(run_length)
 
 max_force = 20
 
-numberOfGenerations = 10
+numberOfGenerations = 1
 
-populationSize = 10
+populationSize = 1
+
+numSensorNeurons = 3
+numMotorNeurons = 2
