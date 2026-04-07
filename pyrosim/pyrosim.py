@@ -180,6 +180,10 @@ def Send_Synapse( sourceNeuronName , targetNeuronName , weight ):
 
     f.write('    <synapse sourceNeuronName = "' + str(sourceNeuronName) + '" targetNeuronName = "' + str(targetNeuronName) + '" weight = "' + str(weight) + '" />\n')
 
+def Send_Hidden_Neuron(name):
+
+    f.write('    <neuron name = "' + str(name) + '" type = "hidden" />\n')
+
  
 def Set_Motor_For_Joint(bodyIndex,jointName,controlMode,targetPosition,maxForce):
 
