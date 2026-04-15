@@ -19,6 +19,12 @@ class NEURON:
         self.Search_For_Joint_Name(line)
 
         self.Set_Value(0.0)
+        
+        # Setting default gain for now
+        self.Set_Gain(0.5)
+
+        # Leaving bias alone for now
+        self.Set_Bias(0.0)
 
     def Add_To_Value( self, value ):
 
@@ -39,6 +45,14 @@ class NEURON:
     def Get_Value(self):
 
         return self.value
+    
+    def Get_Gain(self):
+
+        return self.gain
+    
+    def Get_Bias(self):
+
+        return self.bias
 
     def Is_Sensor_Neuron(self):
 
@@ -62,15 +76,23 @@ class NEURON:
 
         # print("")
 
-    def Set_Value(self,value):
+    def Set_Value(self, value):
 
         self.value = value
+
+    def Set_Gain(self, gain):
+        
+        self.gain = gain
+
+    def Set_Bias(self, bias):
+
+        self.bias = bias
 
     def Update_Sensor_Neuron(self):
 
         self.Set_Value(pyrosim.Get_Touch_Sensor_Value_For_Link(self.Get_Link_Name()))
 
-    def Update_Hidden_Or_Motor_Neuron(self, neurons, synapses):
+    def Update_Motor_Neuron(self, neurons, synapses):
         
         self.Set_Value(0.0)
         for synapse in synapses.keys():
@@ -82,7 +104,25 @@ class NEURON:
     def Allow_Presynaptic_Neuron_To_Influence_Me(self, current_weight, presynaptic_weight):
         self.Add_To_Value(presynaptic_weight * current_weight)
 
+    def Update_Hidden_Neuron(self, neurons, synapses):
+        # new value = -value + sum for all synapses(weight at synapse j * (tanh(gain * (presynaptic_weight + presynaptic_bias))) + current_value)
+        for synapse in synapses.keys():
+            if synapse[1] == self.Get_Name():
+                new_value = self.Allow_Recurrent_Connections(neurons, synapses)
+                self.Set_Value(new_value)
 
+    def Allow_Recurrent_Connections(self, neurons, synapses):
+        # Sum of all synapses  
+        sum = 0
+        for synapse in synapses.keys():
+            current_weight = synapses[synapse].Get_Weight()
+            presynaptic_weight = neurons[synapse[0]].Get_Value()
+            presynaptic_bias = neurons[synapse[0]].Get_Bias()
+            # not sure if this is doing w ji...
+            sum += current_weight * math.tanh(self.Get_Gain() * (presynaptic_weight + presynaptic_bias)) + self.Get_Value()
+
+        new_value = -self.Get_Value() + sum
+        return new_value
 
 # -------------------------- Private methods -------------------------
 

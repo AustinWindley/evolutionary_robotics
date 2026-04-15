@@ -76,7 +76,7 @@ class SOLUTION:
         # Hidden to Motor
         for currentRow in range(c.numHiddenNeurons):
             for currentColumn in range(c.numMotorNeurons):
-                pyrosim.Send_Synapse(sourceNeuronName=currentRow,
+                pyrosim.Send_Synapse(sourceNeuronName=currentRow + c.numSensorNeurons,
                                      targetNeuronName=currentColumn + c.numSensorNeurons + c.numHiddenNeurons,
                                      weight=self.hiddenToMotorWeights[currentRow][currentColumn])
         # exit()
