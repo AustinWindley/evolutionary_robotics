@@ -9,13 +9,13 @@ phaseOffset = np.pi
 backLegSensorValues = np.zeros(run_length)
 frontLegSensorValues = np.zeros(run_length)
 
-max_force = 20
+max_force = 40
 
-numberOfGenerations = 10
+numberOfGenerations = 50
 populationSize = 10
 
 numSensorNeurons = 9
 numMotorNeurons = 8
-numHiddenNeurons = 2
+numHiddenNeurons = 8
 
 motorJointRange = 0.2

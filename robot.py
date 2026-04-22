@@ -51,6 +51,6 @@ class ROBOT:
         #xCoordinateOfLinkZero = positionOfLinkZero[0]
         xPosition = basePosition[0]
         
-        with open(f"tmp{self.solutionID}.txt", "w") as f:
+        with open(f"tmp{str(self.solutionID)}.txt", "w") as f:
             f.write(str(xPosition))
         os.rename("tmp"+str(self.solutionID)+".txt" , "fitness"+str(self.solutionID)+".txt")

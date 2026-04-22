@@ -106,10 +106,14 @@ class NEURON:
 
     def Update_Hidden_Neuron(self, neurons, synapses):
         # new value = -value + sum for all synapses(weight at synapse j * (tanh(gain * (presynaptic_weight + presynaptic_bias))) + current_value)
+        self.Set_Value(0.0)
         for synapse in synapses.keys():
             if synapse[1] == self.Get_Name():
                 new_value = self.Allow_Recurrent_Connections(neurons, synapses)
+                #print(new_value)
                 self.Set_Value(new_value)
+                self.Threshold()
+                #print(self.value)
 
     def Allow_Recurrent_Connections(self, neurons, synapses):
         # Sum of all synapses  
@@ -117,9 +121,9 @@ class NEURON:
         for synapse in synapses.keys():
             current_weight = synapses[synapse].Get_Weight()
             presynaptic_weight = neurons[synapse[0]].Get_Value()
-            presynaptic_bias = neurons[synapse[0]].Get_Bias()
+            #presynaptic_bias = neurons[synapse[0]].Get_Bias()
             # not sure if this is doing w ji...
-            sum += current_weight * math.tanh(self.Get_Gain() * (presynaptic_weight + presynaptic_bias)) + self.Get_Value()
+            sum += (current_weight * (math.tanh(self.Get_Gain() * presynaptic_weight)))
 
         new_value = -self.Get_Value() + sum
         return new_value
