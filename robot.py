@@ -44,6 +44,7 @@ class ROBOT:
         #self.nn.Print()
 
     def Get_Fitness(self):
+        self.nn.Print()
         #stateOfLinkZero = p.getLinkState(self.robotId, 0)
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
         #positionOfLinkZero = stateOfLinkZero[0]

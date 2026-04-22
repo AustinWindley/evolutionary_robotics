@@ -72,7 +72,9 @@ class NEURON:
 
         # self.Print_Type()
 
-        self.Print_Value()
+        # self.Print_Value()
+
+        self.Print_Gain()
 
         # print("")
 
@@ -106,6 +108,7 @@ class NEURON:
 
     def Update_Hidden_Neuron(self, neurons, synapses):
         # new value = -value + sum for all synapses(weight at synapse j * (tanh(gain * (presynaptic_weight + presynaptic_bias))) + current_value)
+        old_value = self.Get_Value()
         self.Set_Value(0.0)
         for synapse in synapses.keys():
             if synapse[1] == self.Get_Name():
@@ -113,7 +116,9 @@ class NEURON:
                 #print(new_value)
                 self.Set_Value(new_value)
                 self.Threshold()
-                #print(self.value)
+
+                self.Set_Gain(math.tanh(self.Get_Gain() + (self.Get_Value() - old_value)))
+                #print(self.gain)
 
     def Allow_Recurrent_Connections(self, neurons, synapses):
         # Sum of all synapses  
@@ -163,6 +168,10 @@ class NEURON:
     def Print_Value(self):
 
        print(self.value , " " , end="" )
+
+    def Print_Gain(self):
+
+        print(self.gain , " ", end="" )
 
     def Search_For_Joint_Name(self,line):
 

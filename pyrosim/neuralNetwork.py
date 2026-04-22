@@ -20,11 +20,13 @@ class NEURAL_NETWORK:
 
     def Print(self):
 
-        self.Print_Sensor_Neuron_Values()
+        #self.Print_Sensor_Neuron_Values()
 
-        self.Print_Hidden_Neuron_Values()
+        #self.Print_Hidden_Neuron_Values()
 
-        self.Print_Motor_Neuron_Values()
+        self.Print_Hidden_Neuron_Gains()
+
+        #self.Print_Motor_Neuron_Values()
 
         print("")
 
@@ -106,6 +108,18 @@ class NEURAL_NETWORK:
     def Print_Hidden_Neuron_Values(self):
 
         print("hidden neuron values: " , end = "" )
+
+        for neuronName in sorted(self.neurons):
+
+            if self.neurons[neuronName].Is_Hidden_Neuron():
+
+                self.neurons[neuronName].Print()
+
+        print("")
+
+    def Print_Hidden_Neuron_Gains(self):
+
+        print("hidden neuron gains: " , end = "" )
 
         for neuronName in sorted(self.neurons):
 
