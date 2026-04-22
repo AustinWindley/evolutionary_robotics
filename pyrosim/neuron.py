@@ -6,6 +6,8 @@ import pyrosim.pyrosim as pyrosim
 
 import pyrosim.constants as c
 
+import numpy as np
+
 class NEURON: 
 
     def __init__(self,line):
@@ -117,7 +119,13 @@ class NEURON:
                 self.Set_Value(new_value)
                 self.Threshold()
 
-                self.Set_Gain(math.tanh(self.Get_Gain() + (self.Get_Value() - old_value)))
+                # Set gain based off of change from previous value to reward bigger changes, may adjust next milestone
+                # Activation function is a sigmoid function as opposed to tanh to avoid negative gains
+                val_difference = self.Get_Value() - old_value
+                new_gain = self.Get_Gain() + val_difference
+                activated_gain = 1 / (1 + np.exp(-new_gain))
+
+                self.Set_Gain(activated_gain)
                 #print(self.gain)
 
     def Allow_Recurrent_Connections(self, neurons, synapses):
@@ -126,8 +134,6 @@ class NEURON:
         for synapse in synapses.keys():
             current_weight = synapses[synapse].Get_Weight()
             presynaptic_weight = neurons[synapse[0]].Get_Value()
-            #presynaptic_bias = neurons[synapse[0]].Get_Bias()
-            # not sure if this is doing w ji...
             sum += (current_weight * (math.tanh(self.Get_Gain() * presynaptic_weight)))
 
         new_value = -self.Get_Value() + sum
@@ -192,3 +198,8 @@ class NEURON:
     def Threshold(self):
 
         self.value = math.tanh(self.value)
+
+    def Sigmoid_Threshold(self, val):
+
+        val = 1 / (1 + math.pow(math.e, -val))
+        return val

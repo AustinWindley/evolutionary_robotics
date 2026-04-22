@@ -9,7 +9,7 @@ phaseOffset = np.pi
 backLegSensorValues = np.zeros(run_length)
 frontLegSensorValues = np.zeros(run_length)
 
-max_force = 40
+max_force = 20
 
 numberOfGenerations = 20
 populationSize = 10
