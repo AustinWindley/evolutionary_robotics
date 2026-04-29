@@ -13,11 +13,16 @@ class PARALLEL_HILL_CLIMBER:
         for i in range(c.populationSize):
             self.parents[i] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID += 1
+        self.fitnessScores = []
         
     def Evolve(self):
         self.Evaluate(self.parents)
         for currentGeneration in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
+        with open(f"data/fitnessScores.txt", "w") as f:
+            for i in range(len(self.fitnessScores)):
+                f.write(str(self.fitnessScores[i]) + ",")
+        f.close()
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
@@ -25,6 +30,11 @@ class PARALLEL_HILL_CLIMBER:
         self.Evaluate(self.children)
         # for i in self.parents.keys():
         #     print(f"\nparent: {self.parents[i].fitness} child: {self.children[i].fitness}")
+        bestFitnessScore = 0.0
+        for i in self.parents.keys():
+            if self.parents[i].fitness < bestFitnessScore:
+                bestFitnessScore = self.parents[i].fitness
+        self.fitnessScores.append(bestFitnessScore)
         self.Select()
 
     def Spawn(self):

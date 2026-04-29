@@ -57,7 +57,7 @@ class SOLUTION:
         # exit()
         pyrosim.End()
         while not os.path.exists(f"brain{self.myID}.nndf"):
-            time.sleep(0.01)
+            time.sleep(0.02)
     
     def Mutate(self):
         firstRandomRow = random.randint(0,c.numSensorNeurons-1)
