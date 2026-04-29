@@ -64,19 +64,11 @@ class SOLUTION:
         for i in range(c.numMotorNeurons):
             pyrosim.Send_Motor_Neuron(name = i + c.numSensorNeurons, jointName=self.jointNames[i])
 
-        # Sensor to Hidden
         for currentRow in range(c.numSensorNeurons):
-            for currentColumn in range(c.numHiddenNeurons):
-                pyrosim.Send_Synapse(sourceNeuronName=currentRow,
-                                    targetNeuronName=currentColumn + c.numSensorNeurons,
-                                    weight=self.sensorToHiddenWeights[currentRow][currentColumn])
-        
-        # Hidden to Motor
-        for currentRow in range(c.numHiddenNeurons):
             for currentColumn in range(c.numMotorNeurons):
-                pyrosim.Send_Synapse(sourceNeuronName=currentRow + c.numSensorNeurons,
-                                     targetNeuronName=currentColumn + c.numSensorNeurons + c.numHiddenNeurons,
-                                     weight=self.hiddenToMotorWeights[currentRow][currentColumn])
+                pyrosim.Send_Synapse(sourceNeuronName=currentRow, 
+                                    targetNeuronName=currentColumn+c.numSensorNeurons, 
+                                    weight=self.weights[currentRow][currentColumn])
         pyrosim.End()
         while not os.path.exists(f"brain{self.myID}.nndf"):
             time.sleep(0.02)
